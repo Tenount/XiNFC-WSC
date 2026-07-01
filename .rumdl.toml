@@ -1,0 +1,8 @@
+[general]
+ignore = [
+    ".git",
+    "node_modules",
+    "openwrt-sdk-*",
+    "build/",
+    "release/",
+]

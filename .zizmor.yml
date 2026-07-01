@@ -1,0 +1,11 @@
+rules:
+  unpinned-uses:
+    disable: true
+  artipacked:
+    disable: true
+  cache-poisoning:
+    disable: true
+  excessive-permissions:
+    disable: true
+  superfluous-actions:
+    disable: true

@@ -1,0 +1,88 @@
+# Custom MegaLinter for XiNFC-WSC
+# Alpine + uv + all project linters
+# Pattern from oxsecurity/megalinter — multi-stage, binary copy only
+
+# --- Linter binaries from official images ---
+FROM koalaman/shellcheck:v0.11.0 AS shellcheck
+FROM mvdan/shfmt:v3.13.1-alpine AS shfmt
+FROM hadolint/hadolint:v2.14.0-alpine AS hadolint
+FROM rhysd/actionlint:1.7.12 AS actionlint
+FROM zricethezav/gitleaks:v8.30.1 AS gitleaks
+
+# --- Build MegaLinter ---
+FROM ghcr.io/astral-sh/uv:0.11.21-python3.14-alpine AS builder
+
+SHELL ["/bin/sh", "-eu", "-c"]
+
+RUN apk add --no-cache git
+WORKDIR /app
+RUN git clone --depth 1 https://github.com/oxsecurity/megalinter.git . \
+    && uv pip install --system --no-cache-dir --no-editable .
+
+# --- Runtime ---
+FROM ghcr.io/astral-sh/uv:0.11.21-python3.14-alpine
+
+SHELL ["/bin/sh", "-eu", "-c"]
+
+RUN apk add --no-cache \
+    git bash gcc g++ musl-dev curl \
+    clang16 clang16-extra-tools cppcheck \
+    cmocka-dev linux-headers \
+    nodejs npm
+
+# MegaLinter core
+COPY --from=builder /usr/local/lib/python3.14/site-packages/ /usr/local/lib/python3.14/site-packages/
+COPY --from=builder /app/megalinter/descriptors /app/megalinter/descriptors
+COPY --from=builder /app/TEMPLATES /app/TEMPLATES
+
+# Linter binaries
+COPY --from=shellcheck /bin/shellcheck /usr/bin/shellcheck
+COPY --from=shfmt /bin/shfmt /usr/bin/shfmt
+COPY --from=hadolint /bin/hadolint /usr/bin/hadolint
+COPY --from=actionlint /usr/local/bin/actionlint /usr/bin/actionlint
+COPY --from=gitleaks /usr/bin/gitleaks /usr/bin/gitleaks
+
+# Linter tooling: clang-format symlink, Node linters, Python linters
+RUN <<EOF
+ln -sf /usr/lib/llvm16/bin/clang-format /usr/bin/clang-format
+ln -sf /usr/lib/llvm16/bin/clang-tidy /usr/bin/clang-tidy
+npm install -g eslint prettier markdownlint-cli
+uv pip install --system --no-cache-dir yamllint codespell rumdl zizmor semgrep
+EOF
+
+# Semgrep rules cache + ls-lint binary
+ARG TARGETARCH
+# hadolint ignore=DL4006
+RUN <<EOF
+mkdir -p /usr/local/share/semgrep-rules
+
+# C rules from semgrep.dev
+curl -sL https://semgrep.dev/c/r/c -o /usr/local/share/semgrep-rules/c.yaml
+echo "Cached $(grep -c '^- id:' /usr/local/share/semgrep-rules/c.yaml) semgrep rules"
+
+# GitLab SAST rules
+mkdir -p /usr/local/share/semgrep-rules/gitlab-sast
+curl -sL "https://gitlab.com/gitlab-org/security-products/sast-rules/-/archive/main/sast-rules-main.tar.gz" -o /tmp/sast-rules.tar.gz
+tar xzf /tmp/sast-rules.tar.gz -C /tmp
+mv /tmp/sast-rules-main/c /usr/local/share/semgrep-rules/gitlab-sast
+rm -rf /tmp/sast-rules.tar.gz /tmp/sast-rules-main
+echo "Cached $(find /usr/local/share/semgrep-rules/gitlab-sast -name '*.yml' | wc -l) GitLab SAST rules"
+
+# 0xdea C rules
+mkdir -p /usr/local/share/semgrep-rules/0xdea
+curl -sL "https://github.com/0xdea/semgrep-rules/archive/refs/heads/main.tar.gz" -o /tmp/0xdea.tar.gz
+tar xzf /tmp/0xdea.tar.gz -C /tmp
+mv /tmp/semgrep-rules-main/rules/c/* /usr/local/share/semgrep-rules/0xdea/
+rm -rf /tmp/0xdea.tar.gz /tmp/semgrep-rules-main
+echo "Cached $(find /usr/local/share/semgrep-rules/0xdea -name '*.yaml' | wc -l) 0xdea rules"
+
+# ls-lint
+ARCH="${TARGETARCH}"
+[ "$ARCH" = "aarch64" ] && ARCH="arm64"
+curl -sSfL "https://github.com/loeffel-io/ls-lint/releases/download/v2.3.1/ls-lint-linux-${ARCH}" \
+    -o /usr/bin/ls-lint
+chmod +x /usr/bin/ls-lint
+EOF
+
+ENTRYPOINT ["python3", "-m", "megalinter.run"]
+WORKDIR /tmp/lint

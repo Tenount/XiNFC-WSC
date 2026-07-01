@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "NFC Configuration"
+msgstr "Настройка NFC"
+
+msgid "Use this page to write Wi-Fi credentials to the <abbr title=\"Near Field Communication\">NFC</abbr> chip via <abbr title=\"Inter-Integrated Circuit\">I2C</abbr>."
+msgstr "Используйте эту страницу для записи Wi-Fi данных в <abbr title=\"Near Field Communication\">NFC</abbr> чип через <abbr title=\"Inter-Integrated Circuit\">I2C</abbr>."
+
+msgid "Wi-Fi Interface"
+msgstr "Wi-Fi интерфейс"
+
+msgid "Writing to NFC..."
+msgstr "Запись в NFC..."
+
+msgid "Please wait while data is being written to the NFC chip."
+msgstr "Пожалуйста, подождите пока данные записываются в NFC чип."
+
+msgid "NFC write OK"
+msgstr "NFC записано успешно"
+
+msgid "Failed (code "
+msgstr "Ошибка (код "
+
+msgid "Error: "
+msgstr "Ошибка: "
+
+msgid "Failed: "
+msgstr "Ошибка: "
+
+msgid "Configuration"
+msgstr "Конфигурация"
+
+msgid "Diagnostics & State"
+msgstr "Диагностика и состояние"
+
+msgid "Read from NFC"
+msgstr "Прочитать с NFC"
+
+msgid "Reading..."
+msgstr "Чтение..."
+
+msgid "No NFC data"
+msgstr "Нет данных NFC"
+
+msgid "Erase all Wi-Fi credentials from the NFC chip?"
+msgstr "Удалить все Wi-Fi учётные данные с NFC чипа?"
+
+msgid "Empty message — write anyway?"
+msgstr "Пустое сообщение — всё равно записать?"
+
+msgid "Select interface..."
+msgstr "Выберите интерфейс..."
+
+msgid "Select a Wi-Fi interface first"
+msgstr "Сначала выберите Wi-Fi интерфейс"
+
+msgid "Auto-sync NFC when Wi-Fi credentials change"
+msgstr "Авто-синхронизация NFC при изменении Wi-Fi"
+
+msgid "Blink router LED on NFC write"
+msgstr "Мигать светодиодом роутера при записи"
+
+msgid "Write to NFC"
+msgstr "Записать в NFC"
+
+msgid "From NFC"
+msgstr "Из NFC"
+
+msgid "From Wi-Fi"
+msgstr "Из Wi-Fi"
+
+msgid "Auth Type"
+msgstr "Тип аутентификации"
+
+msgid "Encryption"
+msgstr "Шифрование"
+
+msgid "Network Key"
+msgstr "Ключ сети"
+
+msgid "Reveal/hide password"
+msgstr "Показать/скрыть пароль"
+
+msgid "Clear NFC"
+msgstr "Очистить NFC"
+
+msgid "NFC chip cleared"
+msgstr "NFC чип очищен"
+
+msgid "NFC write action"
+msgstr "Действие записи NFC"
+
+msgid "Write admin URL"
+msgstr "Записать URL администратора"
+
+msgid "Write text message"
+msgstr "Записать текст"
+
+msgid "Clear NFC chip data"
+msgstr "Очистить данные чипа"
+
+msgid "Message text"
+msgstr "Текст сообщения"
+
+msgid "Executing..."
+msgstr "Выполнение..."
+
+msgid "Write custom text"
+msgstr "Записать текст"
+
+msgid "Message text..."
+msgstr "Текст сообщения..."

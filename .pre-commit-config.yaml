@@ -1,0 +1,15 @@
+repos:
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.25.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies: ['@commitlint/config-conventional']
+  - repo: local
+    hooks:
+      - id: megalinter
+        name: MegaLinter
+        entry: just check
+        language: system
+        pass_filenames: false
+        always_run: true

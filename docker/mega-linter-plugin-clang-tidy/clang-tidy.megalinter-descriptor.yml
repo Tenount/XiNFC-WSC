@@ -1,0 +1,20 @@
+---
+descriptor_id: C_CLANG_TIDY
+descriptor_type: language
+descriptor_flavors:
+  - c_cpp
+file_extensions:
+  - '.c'
+linters:
+  - config_file_name: .clang-tidy
+    cli_config_arg_name: '--config-file='
+    cli_executable: clang-tidy
+    cli_lint_errors_count: regex_count
+    cli_lint_errors_regex: "\\bwarning:\\s"
+    cli_lint_extra_args:
+      - '--quiet'
+    cli_lint_mode: list_of_files
+    linter_name: clang-tidy
+    linter_repo: https://github.com/llvm/llvm-project
+    linter_url: https://clang.llvm.org/extra/clang-tidy/
+    name: C_CLANG_TIDY

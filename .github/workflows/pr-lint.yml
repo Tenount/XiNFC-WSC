@@ -1,0 +1,50 @@
+name: PR Validation
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  pr-title:
+    name: Conventional Commit PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            style
+            refactor
+            test
+            chore
+            ci
+            build
+            perf
+            revert
+          requireScope: false
+
+  changelog:
+    name: Changelog format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check CHANGELOG.md format
+        run: |
+          if ! grep -q "^## \[Unreleased\]" CHANGELOG.md; then
+            echo "ERROR: CHANGELOG.md missing [Unreleased] section"
+            exit 1
+          fi
+          if ! grep -q "^## \[1\." CHANGELOG.md; then
+            echo "ERROR: CHANGELOG.md missing version history"
+            exit 1
+          fi
+          echo "CHANGELOG.md format OK"

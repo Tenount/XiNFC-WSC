@@ -1,0 +1,17 @@
+ignored:
+  # Dev Container: system packages are pinned by OS version in base image
+  - DL3008
+  # Dev Container: npm packages use latest for dev tools (linters, formatters)
+  - DL3016
+  # Dev Container: pip packages use latest for dev tools (cppcheck)
+  - DL3013
+  # Dev Container: pip --no-cache not needed in multi-stage build
+  - DL3042
+  # Dev Container: apk packages use Alpine base image version
+  - DL3018
+  # Dev Container: consecutive RUN is intentional for build stages
+  - DL3059
+  # Docker: cd in RUN is fine for build scripts
+  - DL3003
+  # Docker: cd failure handled by build context
+  - SC2164

@@ -1,0 +1,126 @@
+# Custom MegaLinter Flavor: xinfc
+# Optimized for C project (OpenWrt package)
+# Only necessary linters enabled
+
+# Enabled linters (17)
+ENABLE_LINTERS:
+  # C
+  - C_CLANG_FORMAT
+  - C_CPPCHECK
+  - C_CLANG_TIDY
+
+  # Shell
+  - BASH_SHELLCHECK
+  - BASH_SHFMT
+
+  # JavaScript
+  - JAVASCRIPT_ES
+  - JAVASCRIPT_PRETTIER
+
+  # YAML
+  - YAML_YAMLLINT
+  - YAML_PRETTIER
+
+  # Markdown
+  - MARKDOWN_MARKDOWNLINT
+  - MARKDOWN_RUMDL
+
+  # Dockerfile
+  - DOCKERFILE_HADOLINT
+
+  # GitHub Actions
+  - ACTION_ACTIONLINT
+  - ACTION_ZIZMOR
+
+  # Repository
+  - REPOSITORY_LS_LINT
+  - REPOSITORY_GITLEAKS
+  - REPOSITORY_SEMGREP
+
+  # Spell
+  - SPELL_CODESPELL
+
+# Linter configuration
+REPOSITORY_SEMGREP_RULESETS:
+  [
+    '/usr/local/share/semgrep-rules/c.yaml',
+    '/usr/local/share/semgrep-rules/gitlab-sast',
+    '/usr/local/share/semgrep-rules/0xdea',
+  ]
+
+# Exclude GitLab rules that overlap with 0xdea (0xdea is broader)
+# Exclude rules redundant with GCC -Wformat=2 / -Wconversion, or unsupported on musl
+REPOSITORY_SEMGREP_ARGUMENTS: >-
+  --exclude-rule usr.local.share.semgrep-rules.gitlab-sast.c.buffer.c_buffer_rule-strcpy
+  --exclude-rule usr.local.share.semgrep-rules.gitlab-sast.c.buffer.c_buffer_rule-strncpy
+  --exclude-rule usr.local.share.semgrep-rules.gitlab-sast.c.buffer.c_buffer_rule-strcat
+  --exclude-rule usr.local.share.semgrep-rules.gitlab-sast.c.buffer.c_buffer_rule-memcpy-CopyMemory
+  --exclude-rule usr.local.share.semgrep-rules.gitlab-sast.c.buffer.c_buffer_rule-strlen-wcslen
+  --exclude-rule usr.local.share.semgrep-rules.gitlab-sast.c.misc.c_misc_rule-fopen-open
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-write-into-stack-buffer
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-integer-truncation
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-signed-unsigned-conversion
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-secure-fill
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-interesting-api-calls
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-argv-envp-access
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-pointer-subtraction
+  --exclude-rule usr.local.share.semgrep-rules.c.lang.security.insecure-use-memset.insecure-use-memset
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-high-entropy-assignment
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-memory-address-exposure
+  --exclude-rule usr.local.share.semgrep-rules.0xdea.raptor-missing-default-in-switch
+
+JAVASCRIPT_DEFAULT_STYLE: prettier
+
+C_CLANG_FORMAT_CONFIG_FILE: .clang-format
+C_CPPCHECK_ARGUMENTS: '--suppress=normalCheckLevelMaxBranches'
+
+MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdownlint.json
+MARKDOWN_RUMDL_CONFIG_FILE: .rumdl.toml
+
+DOCKERFILE_HADOLINT_CONFIG_FILE: .hadolint.yaml
+
+# Makefile is not a shell script, shellcheck cannot parse it (SC1073)
+BASH_SHELLCHECK_FILTER_REGEX_EXCLUDE: (Makefile)$
+
+REPOSITORY_LS_LINT_CONFIG_FILE: .ls-lint.yml
+
+YAML_YAMLLINT_CONFIG_FILE: .yamllint.yaml
+
+SPELL_CODESPELL_CONFIG_FILE: .codespellrc
+
+# Filters: explicit include (only project files)
+FILTER_REGEX_INCLUDE: (\.github/|docker/|docs/|package/|tests/|.*\.(c|h|js|sh|yml|yaml|json|md|toml)$)
+FILTER_REGEX_EXCLUDE: (\.opencode/|\.agents/)
+
+# Reporting
+PRINT_ALPACA: false
+LOG_LEVEL: ERROR
+SHOW_ELAPSED_TIME: true
+FILEIO_REPORTER: false
+SHOW_SKIPPED_LINTERS: false
+FLAVOR_SUGGESTIONS: false
+SECURITY_SUGGESTIONS: false
+CONSOLE_REPORTER: true
+CONSOLE_REPORTER_SECTIONS: false
+OUTPUT_DETAIL: simple
+FORMATTERS_DISABLE_ERRORS: true
+UPDATED_SOURCES_REPORTER: false
+
+# Plugin: clang-tidy (MegaLinter plugin for static analysis of C files)
+PLUGINS:
+  - file://docker/mega-linter-plugin-clang-tidy/clang-tidy.megalinter-descriptor.yml
+
+# C_CLANG_TIDY: all warnings fail CI
+# ponytail: list_of_files mode requires --quiet, no --
+# Exclude tests — cmocka/wifi.h include paths only available in dev container
+C_CLANG_TIDY_FILTER_REGEX_EXCLUDE: (tests/)
+
+# Pre-commands: install linters not in c_cpp flavor
+MEGALINTER_PRE_COMMANDS:
+  - pip install rumdl
+  - apk add --no-cache curl && curl -sSfL https://github.com/editorconfig-checker/editorconfig-checker/releases/download/v3.0.3/ec-linux-amd64.tar.gz | tar xz -C /usr/bin bin/ec-linux-amd64 && mv /usr/bin/bin/ec-linux-amd64 /usr/bin/ec
+
+# zizmor: allow GITHUB_TOKEN for online audits
+ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
+  - GITHUB_TOKEN
+ACTION_ZIZMOR_ARGUMENTS: '--config .zizmor.yml'

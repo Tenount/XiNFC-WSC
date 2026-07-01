@@ -1,0 +1,18 @@
+{
+  "luci-app-xinfc": {
+    "description": "Permissions for XiNFC app",
+    "read": {
+      "file": {
+        "/usr/sbin/xinfc-wsc": ["exec"],
+        "/usr/share/xinfc/write-admin.sh": ["exec"],
+        "/usr/share/xinfc/write-wifi.sh": ["exec"],
+        "/usr/share/xinfc/write-text.sh": ["exec"],
+        "/usr/share/xinfc/clear-nfc.sh": ["exec"]
+      },
+      "uci": ["xinfc"]
+    },
+    "write": {
+      "uci": ["xinfc"]
+    }
+  }
+}

@@ -1,0 +1,181 @@
+# XiNFC for OpenWrt translation template.
+# Copyright (C) 2026 Tenount
+# This file is distributed under the same license as the luci-app-xinfc package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: luci-app-xinfc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-17 10:00+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "NFC Configuration"
+msgstr ""
+
+msgid "Use this page to write Wi-Fi credentials to the <abbr title=\"Near Field Communication\">NFC</abbr> chip via <abbr title=\"Inter-Integrated Circuit\">I2C</abbr>."
+msgstr ""
+
+msgid "Auto Fill from Wi-Fi Interface"
+msgstr ""
+
+msgid "Encryption Mode"
+msgstr ""
+
+msgid "SSID"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Writing to NFC..."
+msgstr ""
+
+msgid "Please wait while data is being written to the NFC chip."
+msgstr ""
+
+msgid "NFC configuration saved successfully."
+msgstr ""
+
+msgid "Failed to write to NFC. Exit code: "
+msgstr ""
+
+msgid "Command execution error: "
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "WPA Personal (PSK)"
+msgstr ""
+
+msgid "WPA Personal (PSK) (TKIP)"
+msgstr ""
+
+msgid "WPA Personal (PSK) (AES/CCMP)"
+msgstr ""
+
+msgid "WPA Personal (PSK) (CCMP)"
+msgstr ""
+
+msgid "WPA Personal (PSK) (TKIP+AES)"
+msgstr ""
+
+msgid "WPA Personal (PSK) (TKIP+CCMP)"
+msgstr ""
+
+msgid "WPA Enterprise"
+msgstr ""
+
+msgid "WPA Enterprise (TKIP)"
+msgstr ""
+
+msgid "WPA Enterprise (AES/CCMP)"
+msgstr ""
+
+msgid "WPA Enterprise (CCMP)"
+msgstr ""
+
+msgid "WPA Enterprise (TKIP+AES)"
+msgstr ""
+
+msgid "WPA Enterprise (TKIP+CCMP)"
+msgstr ""
+
+msgid "WEP (Open System)"
+msgstr ""
+
+msgid "WEP (Open System) explicitly 'open'"
+msgstr ""
+
+msgid "WEP (Shared Key)"
+msgstr ""
+
+msgid "WPA/WPA2 Enterprise Mixed"
+msgstr ""
+
+msgid "WPA/WPA2 Enterprise Mixed (TKIP)"
+msgstr ""
+
+msgid "WPA/WPA2 Enterprise Mixed (AES/CCMP)"
+msgstr ""
+
+msgid "WPA/WPA2 Enterprise Mixed (CCMP)"
+msgstr ""
+
+msgid "WPA/WPA2 Enterprise Mixed (TKIP+AES)"
+msgstr ""
+
+msgid "WPA/WPA2 Enterprise Mixed (TKIP+CCMP)"
+msgstr ""
+
+msgid "WPA2 Personal (PSK)"
+msgstr ""
+
+msgid "WPA2 Personal (PSK) (TKIP)"
+msgstr ""
+
+msgid "WPA2 Personal (PSK) (AES/CCMP)"
+msgstr ""
+
+msgid "WPA2 Personal (PSK) (CCMP)"
+msgstr ""
+
+msgid "WPA2 Personal (PSK) (TKIP+AES)"
+msgstr ""
+
+msgid "WPA2 Personal (PSK) (TKIP+CCMP)"
+msgstr ""
+
+msgid "WPA/WPA2 Personal (PSK) Mixed"
+msgstr ""
+
+msgid "WPA/WPA2 Personal (PSK) Mixed (TKIP)"
+msgstr ""
+
+msgid "WPA/WPA2 Personal (PSK) Mixed (AES/CCMP)"
+msgstr ""
+
+msgid "WPA/WPA2 Personal (PSK) Mixed (CCMP)"
+msgstr ""
+
+msgid "WPA/WPA2 Personal (PSK) Mixed (TKIP+AES)"
+msgstr ""
+
+msgid "WPA/WPA2 Personal (PSK) Mixed (TKIP+CCMP)"
+msgstr ""
+
+msgid "WPA2 Enterprise"
+msgstr ""
+
+msgid "WPA2 Enterprise (TKIP)"
+msgstr ""
+
+msgid "WPA2 Enterprise (AES/CCMP)"
+msgstr ""
+
+msgid "WPA2 Enterprise (CCMP)"
+msgstr ""
+
+msgid "WPA2 Enterprise (TKIP+AES)"
+msgstr ""
+
+msgid "WPA2 Enterprise (TKIP+CCMP)"
+msgstr ""
+
+msgid "WPA3 Personal (SAE)"
+msgstr ""
+
+msgid "WPA2/WPA3 Personal (PSK/SAE) Mixed"
+msgstr ""
+
+msgid "WPA3 Enterprise"
+msgstr ""
+
+msgid "WPA3/WPA2 Enterprise Mixed"
+msgstr ""

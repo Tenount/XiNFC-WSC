@@ -1,0 +1,40 @@
+# ls-lint configuration
+# Validates file and directory naming conventions
+
+version: 2.0
+
+ls:
+  # C files: snake_case
+  .c: snake_case
+  .h: snake_case
+
+  # Shell scripts: kebab-case (test-binary, build-images)
+  .sh: kebab-case
+
+  # JavaScript: snake_case (LuCI convention)
+  .js: snake_case
+
+  # Config files: lowercase
+  .json: lowercase
+  .yml: lowercase
+  .yaml: lowercase
+
+  # Directories: snake_case
+  .*/: snake_case
+
+ignore:
+  - .git
+  - .github
+  - .omo
+  - .devcontainer
+  - build
+  - release
+  - openwrt-sdk-*
+  - node_modules
+  - package/xinfc/src
+  - package/xinfc/root
+  - package/luci-app-xinfc/root
+  - CHANGELOG.md
+  - CONTRIBUTING.md
+  - README.md
+  - docker/build-images.sh

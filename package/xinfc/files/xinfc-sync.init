@@ -1,0 +1,16 @@
+#!/bin/sh /etc/rc.common
+
+USE_PROCD=1
+START=99
+STOP=01
+
+# No long-running process — only react to UCI config changes via triggers.
+# For details see: https://openwrt.org/docs/guide-developer/procd-init-scripts
+service_triggers() {
+    procd_add_reload_trigger "wireless"
+    procd_add_reload_trigger "xinfc"
+}
+
+reload_service() {
+    /usr/share/xinfc/sync-handler.sh
+}

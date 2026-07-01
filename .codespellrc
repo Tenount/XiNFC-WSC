@@ -1,0 +1,3 @@
+[codespell]
+ignore-words-list = hinfc,wsc,ndef,i2c,makefile
+skip = .git,openwrt-sdk-*

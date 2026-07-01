@@ -1,0 +1,32 @@
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# AI agent directories
+.serena/
+.claude/
+.agents/
+
+# Temporary and build files
+*.tmp
+*.log
+*.bak
+openwrt-sdk-*/
+bin/
+build_dir/
+staging_dir/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# MegaLinter reports
+megalinter-reports/
+
+# Test artifacts
+tests/
+
+

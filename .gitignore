@@ -1,0 +1,30 @@
+
+# AI agent directories — only skills/ is tracked
+.agents/*
+!.agents/skills/
+!.agents/skills/**
+
+# Build artifacts
+# IDE files
+# MegaLinter reports
+# OS files
+# Temporary files
+*.bak
+*.log
+*.swo
+*.swp
+*.tmp
+*~
+.DS_Store
+.claude/
+.idea/
+.omo/
+.opencode/
+.serena/
+.vscode/
+Thumbs.db
+bin/
+build_dir/
+megalinter-reports/
+openwrt-sdk-*/
+staging_dir/

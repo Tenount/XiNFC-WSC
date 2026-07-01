@@ -1,0 +1,23 @@
+# Dev container for xinfc unit/smoke tests
+#
+# Build: docker build -f docker/Dockerfile.dev -t xinfc-dev:latest .
+# Run:   docker run --rm -v $(pwd):/workspace -w /workspace xinfc-dev:latest sh -c "cd tests/unit && make test"
+
+FROM alpine:3.20
+
+SHELL ["/bin/sh", "-eu", "-c"]
+
+RUN apk add --no-cache \
+    gcc g++ gawk git make \
+    ncurses-dev openssl-dev \
+    linux-headers \
+    cmocka-dev
+
+RUN adduser -D -s /bin/ash developer && \
+    mkdir -p /workspace && \
+    chown -R developer:developer /workspace
+
+USER developer
+WORKDIR /workspace
+
+CMD ["/bin/ash"]

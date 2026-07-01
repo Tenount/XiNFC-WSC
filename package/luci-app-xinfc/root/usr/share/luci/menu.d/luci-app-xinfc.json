@@ -1,0 +1,17 @@
+{
+  "admin/system/xinfc": {
+    "title": "NFC Configuration",
+    "order": 65,
+    "action": {
+      "type": "view",
+      "path": "xinfc/xinfc"
+    },
+    "depends": {
+      "fs": [
+        {
+          "/usr/sbin/xinfc-wsc": "executable"
+        }
+      ]
+    }
+  }
+}

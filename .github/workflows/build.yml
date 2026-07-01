@@ -1,0 +1,106 @@
+name: Build NFC packages
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  version:
+    name: Validate tag
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tag.outputs.version }}
+    steps:
+      - id: tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if ! echo "$TAG" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "ERROR: Tag '$TAG' does not match vMAJOR.MINOR.PATCH"
+            exit 1
+          fi
+          echo "version=$TAG" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build (SDK ${{ matrix.sdk }})
+    runs-on: ubuntu-latest
+    needs: version
+    strategy:
+      matrix:
+        sdk: [v24.10.7, v25.12.4]
+    env:
+      SDK_TAG: mediatek-filogic-${{ matrix.sdk }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build in SDK container
+        run: |
+          mkdir -p release
+          cat <<'SCRIPT' > /tmp/build.sh
+            set -e
+            ./scripts/feeds update -a 2>&1
+            ./scripts/feeds install luci-base 2>&1
+            cp -r /src/package/xinfc /builder/package/xinfc
+            cp -r /src/package/luci-app-xinfc /builder/package/feeds/luci/luci-app-xinfc
+            echo "CONFIG_PACKAGE_xinfc=y" > .config
+            echo "CONFIG_PACKAGE_luci-app-xinfc=y" >> .config
+            make defconfig 2>&1
+            make package/xinfc/compile V=s -j4 2>&1
+            make package/luci-app-xinfc/compile V=s -j4 2>&1
+          SCRIPT
+          chmod +x /tmp/build.sh
+          CID=$(docker run -d \
+            -v "$(pwd):/src:ro" \
+            -v "/tmp/build.sh:/tmp/build.sh:ro" \
+            "openwrt/sdk:${SDK_TAG}" \
+            /bin/sh /tmp/build.sh)
+          RC=$(docker wait "$CID")
+          echo "Container exit code: $RC"
+          docker logs "$CID" 2>&1
+          mkdir -p release
+          docker cp "$CID:/builder/bin/packages/." ./release/ || true
+          find ./release/ -name "*.ipk" -exec mv -t ./release/ {} + 2>/dev/null || true
+          find ./release/ -name "*.apk" -exec mv -t ./release/ {} + 2>/dev/null || true
+          rm -rf ./release/aarch64_cortex-a53 2>/dev/null || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: xinfc-${{ github.ref_name }}-${{ matrix.sdk }}
+          path: |
+            release/xinfc*.ipk
+            release/luci-app-xinfc*.ipk
+            release/luci-i18n-xinfc*.ipk
+            release/xinfc*.apk
+            release/luci-app-xinfc*.apk
+            release/luci-i18n-xinfc*.apk
+          retention-days: 1
+          if-no-files-found: error
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [version, build]
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: ./artifacts
+          pattern: xinfc-${{ github.ref_name }}-*
+          merge-multiple: true
+
+      - name: Create release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: ./artifacts/*.*
+          name: 'XiNFC ${{ needs.version.outputs.version }}'
+          tag_name: ${{ needs.version.outputs.version }}
+          draft: false
+          prerelease: false

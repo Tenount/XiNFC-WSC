@@ -1,0 +1,181 @@
+version = 1
+
+[[bindings]]
+doc = ".github/workflows/build.yml"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = ".github/workflows/build.yml"
+sig = "94c72e5eeacfd1f5"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = ".github/workflows/lint.yml"
+sig = "4750a938421ec6ea"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = ".github/workflows/megalinter-build.yml"
+sig = "97b3dfcf4db73daa"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = ".mega-linter.yml"
+sig = "5f0a9c4714ee3a91"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "CHANGELOG.md"
+sig = "96a0ec669ff59b6d"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "CONTRIBUTING.md"
+sig = "87be9f4a2072c644"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "README.md"
+sig = "5502ee8808f16293"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "docker/Dockerfile.megalinter"
+sig = "b39879f5477e5237"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "docs/auto-sync.md"
+sig = "c5723f5193391e6d"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "docs/linter-suppressions.md"
+sig = "4af85b7e2a6fe8b2"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "docs/openwrt-versioning.md"
+sig = "56d204f582a9aad7"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "docs/verify-i2c.md"
+sig = "8bed031fe0aa02cd"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "install.sh"
+sig = "a6623dd0779629b5"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "justfile"
+sig = "b1dd5654d37e17ba"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/luci-app-xinfc/Makefile"
+sig = "204391ed6c5ec72b"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/luci-app-xinfc/htdocs/luci-static/resources/view/xinfc/xinfc.js"
+sig = "22ff0629746a6cd5"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/luci-app-xinfc/po/ru/xinfc.po"
+sig = "ea3f0e20214cc350"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/luci-app-xinfc/root/usr/share/luci/menu.d/luci-app-xinfc.json"
+sig = "ba07545701ddfb7d"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/luci-app-xinfc/root/usr/share/rpcd/acl.d/luci-app-xinfc.json"
+sig = "f6f12741383d8a31"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/xinfc/files/hotplug-nfc-sync.sh"
+sig = "3f65c19702f3bbff"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/xinfc/root/etc/config/xinfc"
+sig = "e9bf90a9285130d2"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "package/xinfc/src/xinfc-utils.c"
+sig = "c1ec9bba25b59615"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "tests/smoke/test-binary.sh"
+sig = "fd51adc5fe5cc781"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "tests/unit/test_lock.c"
+sig = "4f0d24c4b27052b9"
+
+[[bindings]]
+doc = "AGENTS.md"
+target = "tests/unit/test_wifi.c"
+sig = "b4484e70e7ba5a6c"
+
+[[bindings]]
+doc = "CHANGELOG.md"
+target = "install.sh"
+sig = "a6623dd0779629b5"
+
+[[bindings]]
+doc = "CHANGELOG.md"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "README.md"
+target = "install.sh"
+sig = "a6623dd0779629b5"
+
+[[bindings]]
+doc = "README.md"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "docs/auto-sync.md"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "docs/linter-suppressions.md"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "docs/openwrt-versioning.md"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "docs/verify-i2c.md"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"
+
+[[bindings]]
+doc = "install.sh"
+target = "package/xinfc/Makefile"
+sig = "2014f55d845e5bca"

@@ -1,0 +1,12 @@
+config nfc_config 'global'
+	# Which Wi-Fi interface to sync to NFC (wifi-iface section name)
+	# Set via LuCI: System → NFC Configuration
+	option iface 'default_radio0'
+	# Auto-sync NFC when Wi-Fi credentials change (via hotplug)
+	option auto_sync '1'
+	# Blink router LED on NFC write (blue=success, yellow=error)
+	option led_feedback '1'
+	# NFC write action: url (admin URL), text (custom message), clear (erase)
+	option nfc_action 'url'
+	# Custom text message for --write-text
+	option nfc_action_text ''
